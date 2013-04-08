@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console as Console;
+use Symfony\Component\Process as Process;
+
+$application = new Console\Application();
+$application
+    ->register('bench')
+    ->setDefinition(array(
+        new Console\Input\InputArgument('file', Console\Input\InputArgument::REQUIRED, 'File to bench'),
+        new Console\Input\InputOption('iterations', '-i', Console\Input\InputOption::VALUE_OPTIONAL, 'Number of iterations to execute the code from file', 1000),
+        new Console\Input\InputOption('php', '-p', Console\Input\InputOption::VALUE_OPTIONAL, 'Give the bin path to php'),
+    ))
+    ->setDescription('Give a small bench for the file given')
+    ->setCode(function (Console\Input\InputInterface $input, Console\Output\OutputInterface $output) {
+        $file       = $input->getArgument('file');
+        $iterations = $input->getOption('iterations');
+
+        // Check if file exist
+        if (false === file_exists($file)) {
+            throw new \Exception(sprintf("%s does not exist", $file), 1);
+        }
+
+        // Get the content of the php file and make a process
+        $script = file_get_contents($file);
+        $process = new Process\PhpProcess($script);
+
+        // Check and give the php bin path if necessary
+        if (null !== $php = $input->getOption('php')) {
+            $process->setPhpBinary($php);
+        }
+
+        $times    = 0;
+        $memories = 0;
+        $startMemory = 0;
+
+        for ($i=0; $i < $iterations; $i++) {
+            // Register start time
+            $startTime = microtime(true);
+
+            // launch new Process
+            $process->run();
+
+            // Register stop time and add the diff
+            $stopTime = microtime(true);
+            $diffTime = $stopTime - $startTime;
+
+            // Adding time and memory
+            $times    += $diffTime;
+            $memories += memory_get_usage();
+        }
+
+        $output->writeln(sprintf('File <info>%s</info>', $file));
+        $output->writeln(sprintf('Average of memory usage <info>%s MB</info>', ($memories - $startMemory)/$iterations/1024/1024));
+        $output->writeln(sprintf('Average of time <info>%f sec</info>', $times/$iterations));
+    })
+;
+$application->run();

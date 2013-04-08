@@ -1,0 +1,19 @@
+{
+    "name": "ruian/bench",
+    "description": "Small tools to launch bench from partial code",
+    "require": {
+        "symfony/console": "dev-master",
+        "symfony/process": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "julien Galenski",
+            "email": "julien.galenski@sensiolabs.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Symfony\\": "src/" }
+    },
+    "minimum-stability": "dev"
+}
