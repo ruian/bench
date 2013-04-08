@@ -18,6 +18,8 @@ $application
         $file       = $input->getArgument('file');
         $iterations = $input->getOption('iterations');
 
+        $output->writeln(sprintf('File <info>%s</info>', $file));
+
         // Check if file exist
         if (false === file_exists($file)) {
             throw new \Exception(sprintf("%s does not exist", $file), 1);
@@ -51,7 +53,6 @@ $application
             $memories += memory_get_usage();
         }
 
-        $output->writeln(sprintf('File <info>%s</info>', $file));
         $output->writeln(sprintf('Average of memory usage <info>%s MB</info>', $memories/$iterations/1024/1024));
         $output->writeln(sprintf('Average of time <info>%f sec</info>', $times/$iterations));
     })
