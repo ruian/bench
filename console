@@ -53,7 +53,7 @@ $application
             $memories += memory_get_usage();
         }
 
-        $output->writeln(sprintf('Average of memory usage <info>%s MB</info>', $memories/$iterations/1024/1024));
+        $output->writeln(sprintf('Average of memory usage <info>%f MB</info>', $memories/$iterations/1024/1024));
         $output->writeln(sprintf('Average of time <info>%f sec</info>', $times/$iterations));
     })
 ;
