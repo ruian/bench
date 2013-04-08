@@ -34,7 +34,6 @@ $application
 
         $times    = 0;
         $memories = 0;
-        $startMemory = 0;
 
         for ($i=0; $i < $iterations; $i++) {
             // Register start time
@@ -53,7 +52,7 @@ $application
         }
 
         $output->writeln(sprintf('File <info>%s</info>', $file));
-        $output->writeln(sprintf('Average of memory usage <info>%s MB</info>', ($memories - $startMemory)/$iterations/1024/1024));
+        $output->writeln(sprintf('Average of memory usage <info>%s MB</info>', $memories/$iterations/1024/1024));
         $output->writeln(sprintf('Average of time <info>%f sec</info>', $times/$iterations));
     })
 ;
