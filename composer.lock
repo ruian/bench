@@ -1,5 +1,5 @@
 {
-    "hash": "1347a4021a8b99b583013e1cacdceb75",
+    "hash": "9879a64a9a790595a9c1ede633203a15",
     "packages": [
         {
             "name": "symfony/console",
@@ -97,6 +97,53 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2013-04-07 20:25:23"
+        },
+        {
+            "name": "symfony/stopwatch",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Stopwatch",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Stopwatch.git",
+                "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Stopwatch/zipball/23d6e7b188069d80950cdf96f3d48029f56f11e5",
+                "reference": "23d6e7b188069d80950cdf96f3d48029f56f11e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Stopwatch Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-01-31 21:39:01"
         }
     ],
     "packages-dev": [
@@ -108,7 +155,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "symfony/console": 20,
-        "symfony/process": 20
+        "symfony/process": 20,
+        "symfony/stopwatch": 20
     },
     "platform": [
 

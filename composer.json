@@ -3,7 +3,8 @@
     "description": "Small tools to launch bench from partial code",
     "require": {
         "symfony/console": "dev-master",
-        "symfony/process": "dev-master"
+        "symfony/process": "dev-master",
+        "symfony/stopwatch": "dev-master"
     },
     "license": "MIT",
     "authors": [

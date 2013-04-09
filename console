@@ -4,6 +4,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console as Console;
 use Symfony\Component\Process as Process;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 $application = new Console\Application();
 $application
@@ -34,23 +35,22 @@ $application
             $process->setPhpBinary($php);
         }
 
-        $times    = 0;
-        $memories = 0;
-
+        $stopwatch = new Stopwatch();
+        $stopwatch->start('process');
         for ($i=0; $i < $iterations; $i++) {
-            // Register start time
-            $startTime = microtime(true);
-
             // launch new Process
             $process->run();
+            if (1 < $iterations) {
+                $stopwatch->lap('process');
+            }
+        }
+        $event = $stopwatch->stop('process');
 
-            // Register stop time and add the diff
-            $stopTime = microtime(true);
-            $diffTime = $stopTime - $startTime;
-
-            // Adding time and memory
-            $times    += $diffTime;
-            $memories += memory_get_usage();
+        $memories = 0;
+        $times = 0;
+        foreach ($event->getPeriods() as $period) {
+            $memories += $period->getMemory();
+            $times += $period->getDuration();
         }
 
         $output->writeln(sprintf('Average of memory usage <info>%f MB</info>', $memories/$iterations/1024/1024));
